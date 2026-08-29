@@ -1,3 +1,5 @@
+import './Tracking.css'
+
 function Tracking() {
   return (
     <>
