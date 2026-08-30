@@ -4,7 +4,10 @@ import { useCart } from './Cart'
 
 function Header() {
   const cart = useCart();
-  const quantity = cart.length;
+  let quantity = 0;
+  cart.forEach((cartItem) => {
+    quantity += cartItem.quantity;
+  })
 
   return (
     <div className="header">
