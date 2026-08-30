@@ -1,36 +1,16 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useProducts } from '../hooks/useProducts'
 
 
-function fetchData() {
-  return axios
-    .get('http://localhost:3000/api/products')
-    .then(response => response.data);
-}
-
-function useProducts() {
-  const [products, setProducts] = useState([]);
-  
-  useEffect(() => { 
-    fetchData().then(data => {
-      setProducts(data)
-    })
-  }, []);
-
-  return products;
-}
-
-
-function Products() {
+export function Products() {
   const products = useProducts();
 
   return (
     <>
       {products.map(product => {
-        const { id, image, name, rating, priceCents } = product;
+        const { productid, image, name, rating, priceCents } = product;
 
         return (
-          <div key={id} className="product-container">
+          <div key={productid} className="product-container">
             <div className="product-image-container">
               <img className="product-image"
                 src={image} />
@@ -84,5 +64,3 @@ function Products() {
     </>
   )
 }
-
-export default Products;
