@@ -1,10 +1,11 @@
 import { products } from '../../data/products'
+import axios from 'axios'
 
 
-function fetchData(product) {
-  fetch('http://localhost:3000/api/products')
-  .then(response => response.json)
-  .then(data => console.log(data));
+function fetchData() {
+  return axios
+    .get('http://localhost:3000/api/products')
+    .then(response => response.data);
 }
 
 function Products() {
