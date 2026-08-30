@@ -1,5 +1,12 @@
 import { products } from '../../data/products'
 
+
+function fetchData(product) {
+  fetch('http://localhost:3000/api/products')
+  .then(response => response.json)
+  .then(data => console.log(data));
+}
+
 function Products() {
   return (
     <>
