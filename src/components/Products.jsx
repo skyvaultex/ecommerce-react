@@ -1,4 +1,4 @@
-import { products } from '../../data/products'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
@@ -8,7 +8,22 @@ function fetchData() {
     .then(response => response.data);
 }
 
+function useProducts() {
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => { 
+    fetchData().then(data => {
+      setProducts(data)
+    })
+  }, []);
+
+  return products;
+}
+
+
 function Products() {
+  const products = useProducts();
+
   return (
     <>
       {products.map(product => {
