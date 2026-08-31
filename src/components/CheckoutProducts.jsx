@@ -1,21 +1,6 @@
-import { useProducts } from '../hooks/useProducts'
-
 export function CheckoutProducts({ cart }) {
-  const productList = useProducts();
-  cart.forEach(cart => console.log(cart.productId));
-  const products =
-    cart.map(cart => {
-      const matchingProduct = productList.find(product => product.id === cart.productId);
-      return {
-        ...matchingProduct,
-        quantity: cart.quantity
-      }
-    });
-
-    
-
-  return products.map((product) => {
-    const { id, name, priceCents, quantity, image } = product
+  return cart.map((cartItem) => {
+    const { id, name, priceCents, image } = cartItem.product;
     return (
       <div key={id} className="cart-item-container">
         <div className="delivery-date">
@@ -35,7 +20,7 @@ export function CheckoutProducts({ cart }) {
             </div>
             <div className="product-quantity">
               <span>
-                Quantity: <span className="quantity-label">{quantity}</span>
+                Quantity: <span className="quantity-label">{cartItem.quantity}</span>
               </span>
               <span className="update-quantity-link link-primary">
                 Update

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 
 function fetchCart() {
   return axios
-    .get('/api/cart-items')
+    .get('/api/cart-items?expand=product')
     .then(response => response.data);
 }
 
