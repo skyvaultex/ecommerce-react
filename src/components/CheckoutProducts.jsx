@@ -1,3 +1,5 @@
+import { formatMoney } from '../utils/money'
+
 export function CheckoutProducts({ cart }) {
   return cart.map((cartItem) => {
     const { id, name, priceCents, image } = cartItem.product;
@@ -16,7 +18,7 @@ export function CheckoutProducts({ cart }) {
               {name}
             </div>
             <div className="product-price">
-              ${(priceCents / 100).toFixed(2)}
+              ${formatMoney(priceCents)}
             </div>
             <div className="product-quantity">
               <span>
