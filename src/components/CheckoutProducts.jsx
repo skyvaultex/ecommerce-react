@@ -1,12 +1,10 @@
-import { useCart } from './Cart'
 import { useProducts } from '../hooks/useProducts'
 
-export function CheckoutProducts() {
-  const cartItems = useCart();
+export function CheckoutProducts({ cart }) {
   const productList = useProducts();
-  cartItems.forEach(cart => console.log(cart.productId));
+  cart.forEach(cart => console.log(cart.productId));
   const products =
-    cartItems.map(cart => {
+    cart.map(cart => {
       const matchingProduct = productList.find(product => product.id === cart.productId);
       return {
         ...matchingProduct,

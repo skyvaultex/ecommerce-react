@@ -2,7 +2,7 @@ import './Checkout.css'
 import './checkout-header.css'
 import { CheckoutProducts } from '../components/CheckoutProducts'
 
-function Checkout () {
+function Checkout ({ cart }) {
   return (
     <>
       <title>Checkout</title>
@@ -31,7 +31,7 @@ function Checkout () {
 
         <div className="checkout-grid">
           <div className="order-summary">
-              <CheckoutProducts />
+              <CheckoutProducts cart={cart}/>
           </div>
 
           <div className="payment-summary">
