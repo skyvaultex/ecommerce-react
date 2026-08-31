@@ -17,7 +17,7 @@ function Checkout ({ cart }) {
 
           <div className="checkout-header-middle-section">
             Checkout (<a className="return-to-home-link"
-              href="/">3 items</a>)
+              href="/">3</a>)
           </div>
 
           <div className="checkout-header-right-section">
