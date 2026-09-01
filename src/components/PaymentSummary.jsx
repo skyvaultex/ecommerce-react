@@ -10,7 +10,7 @@ export function PaymentSummary() {
     totalCostBeforeTaxCents,
     totalCostCents,
     totalItems
-  } = paymentSummary;
+  } = paymentSummary || {};
 
   return (
     <div className="payment-summary">

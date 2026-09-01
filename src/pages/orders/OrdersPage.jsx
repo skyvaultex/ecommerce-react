@@ -1,6 +1,6 @@
 import './OrdersPage.css'
-import Header from '../components/Header'
-import { Orders } from '../components/Orders'
+import Header from '../../components/Header'
+import { Orders } from '../../components/Orders'
 
 function OrdersPage({ cart }) {
 

@@ -1,9 +1,9 @@
-import { HomePage } from './pages/HomePage'
-import Checkout from './pages/Checkout'
-import Tracking from './pages/Tracking'
-import OrdersPage from './pages/OrdersPage'
+import { HomePage } from './pages/home/HomePage'
+import CheckoutPage from './pages/checkout/CheckoutPage'
+import TrackingPage from './pages/tracking/TrackingPage'
+import OrdersPage from './pages/orders/OrdersPage'
 import { Routes, Route } from 'react-router'
-import { useCart } from './components/Cart'
+import { useCart } from './hooks/useCart'
 import './App.css'
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage cart={cart} />} />
-      <Route path="checkout" element={<Checkout cart={cart} />} />
-      <Route path="tracking" element={<Tracking />} />
+      <Route path="checkout" element={<CheckoutPage cart={cart} />} />
+      <Route path="tracking" element={<TrackingPage cart={cart}/>} />
       <Route path="orders" element={<OrdersPage cart={cart}/>} />
     </Routes>
   )

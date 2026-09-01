@@ -1,7 +1,7 @@
 import './Tracking.css'
-import Header from '../components/Header'
+import Header from '../../components/Header'
 
-function Tracking() {
+function TrackingPage() {
   return (
     <>
       <title> Tracking </title>
@@ -49,4 +49,4 @@ function Tracking() {
   )
 }
 
-export default Tracking;
+export default TrackingPage;
