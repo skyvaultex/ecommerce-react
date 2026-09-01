@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-function fetchCart() {
+async function fetchCart() {
   return axios
     .get('/api/cart-items?expand=product')
     .then(response => response.data);

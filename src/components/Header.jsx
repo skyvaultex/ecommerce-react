@@ -1,7 +1,7 @@
 import './Header.css'
 import { Link } from 'react-router'
 
-function Header({ cart }) {
+function Header({ cart = [] }) {
   let quantity = 0;
   cart.forEach((cartItem) => {
     quantity += cartItem.quantity;
