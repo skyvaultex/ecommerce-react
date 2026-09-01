@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 export function CheckoutProducts({ cart }) {
   const deliveryOptions = useDeliveryOptions();
 
-
+  
   return deliveryOptions.length > 0 && cart.map((cartItem) => {
     const selectedDeliveryOption = deliveryOptions
       .find((deliveryOption) => {
@@ -15,7 +15,7 @@ export function CheckoutProducts({ cart }) {
     return (
       <div key={id} className="cart-item-container">
         <div className="delivery-date">
-          {dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM, D')}
+          {`Delivery date: ${dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM, D')}`}
         </div>
 
         <div className="cart-item-details-grid">
