@@ -8,7 +8,6 @@ export function Orders() {
   const orders = useOrders();
 
   return orders.map((order) => {
-    console.log(order);
     return (
       <div key={order.id} className="order-container">
 
@@ -33,7 +32,9 @@ export function Orders() {
         <div className="order-details-grid">
           {
             order.products.map(orderProduct => {
-              console.log(orderProduct);
+              console.log('order:', order.id);
+              console.log('product:', orderProduct.product.id);
+              console.log('productId:', orderProduct.productId);
               return (
                 <Fragment key={orderProduct.product.id}>
                   <div className="product-image-container">
@@ -57,7 +58,7 @@ export function Orders() {
                   </div>
 
                   <div className="product-actions">
-                    <Link to="/tracking">
+                    <Link to={`/tracking/${order.id}/${orderProduct.productId}/`}>
                       <button className="track-package-button button-secondary">
                         Track package
                       </button>

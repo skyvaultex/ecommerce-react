@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export function fetchOrders() {
-  return axios.get('api/orders?expand=products')
-    .then(orders => orders.data);
+export async function fetchOrders() {
+  const response = await axios.get('api/orders?expand=products');
+  return response.data;
 }

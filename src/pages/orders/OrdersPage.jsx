@@ -3,7 +3,6 @@ import Header from '../../components/Header'
 import { Orders } from '../../components/Orders'
 
 function OrdersPage({ cart }) {
-
   return (
     <>
       <title> Orders </title>

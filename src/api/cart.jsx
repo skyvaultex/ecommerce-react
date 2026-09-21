@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export function fetchCart() {
-  return axios.get('api/cart-items?expand=product')
-    .then(cart => cart.data);
+export async function fetchCart() {
+  const response = await axios.get('api/cart-items?expand=product');
+  return response.data;
 }
