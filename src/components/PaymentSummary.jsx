@@ -1,8 +1,8 @@
 import { usePaymentSummary } from '../hooks/usePaymentSummary'
 import { formatMoney } from '../utils/money'
 
-export function PaymentSummary() {
-  const paymentSummary = usePaymentSummary();
+export function PaymentSummary({cart}) {
+  const paymentSummary = usePaymentSummary({cart});
   const {
     productCostCents,
     shippingCostCents,

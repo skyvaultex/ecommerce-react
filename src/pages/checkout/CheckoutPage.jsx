@@ -4,7 +4,7 @@ import { CheckoutProducts } from '../../components/CheckoutProducts'
 import { PaymentSummary } from '../../components/PaymentSummary'
 import { Link } from 'react-router'
 
-function CheckoutPage ({ cart }) {
+function CheckoutPage ({ cart, loadCart }) {
   return (
     <>
       <title>Checkout</title>
@@ -33,10 +33,10 @@ function CheckoutPage ({ cart }) {
 
         <div className="checkout-grid">
           <div className="order-summary">
-              <CheckoutProducts cart={cart}/>
+              <CheckoutProducts cart={cart} loadCart={loadCart} />
           </div>
       
-        <PaymentSummary />
+        <PaymentSummary cart={cart} />
         </div>
       </div>
     </>

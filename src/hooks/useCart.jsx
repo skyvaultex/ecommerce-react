@@ -19,8 +19,14 @@ export function useCart() {
     setCart(updatedCart);
   }
 
+  async function loadCart() {
+    const updatedCart = await fetchCart();
+    setCart(updatedCart);
+  }
+
   return {
     cart,
-    addToCart
+    addToCart,
+    loadCart
   };
 }
