@@ -7,11 +7,11 @@ import { useCart } from './hooks/useCart'
 import './App.css'
 
 function App() {
-  const cart = useCart();
+  const { cart, addToCart } = useCart();
 
   return (
     <Routes>
-      <Route index element={<HomePage cart={cart} />} />
+      <Route index element={<HomePage cart={cart} addToCart={addToCart} />} />
       <Route path="checkout" element={<CheckoutPage cart={cart} />} />
       <Route path="/tracking/:orderId/:productId/" element={<TrackingPage cart={cart}/>} />
       <Route path="orders" element={<OrdersPage cart={cart}/>} />
