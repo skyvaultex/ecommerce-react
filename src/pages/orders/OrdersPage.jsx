@@ -2,7 +2,7 @@ import './OrdersPage.css'
 import Header from '../../components/Header'
 import { Orders } from '../../components/Orders'
 
-function OrdersPage({ cart }) {
+function OrdersPage({ cart, addToCart }) {
   return (
     <>
       <title> Orders </title>
@@ -12,7 +12,7 @@ function OrdersPage({ cart }) {
         <div className="page-title">Your Orders</div>
 
         <div className="orders-grid">
-          <Orders />
+          <Orders addToCart={addToCart}/>
         </div>
       </div>
     </>

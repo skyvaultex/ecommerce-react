@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { Link } from 'react-router'
 import dayjs from 'dayjs'
 
-export function Orders() {
+export function Orders({addToCart}) {
   const orders = useOrders();
 
   return orders.map((order) => {
@@ -32,9 +32,6 @@ export function Orders() {
         <div className="order-details-grid">
           {
             order.products.map(orderProduct => {
-              console.log('order:', order.id);
-              console.log('product:', orderProduct.product.id);
-              console.log('productId:', orderProduct.productId);
               return (
                 <Fragment key={orderProduct.product.id}>
                   <div className="product-image-container">
@@ -51,9 +48,13 @@ export function Orders() {
                     <div className="product-quantity">
                       Quantity: {orderProduct.quantity}
                     </div>
-                    <button className="buy-again-button button-primary">
+                    <button 
+                      onClick={() => addToCart(orderProduct.product.id, orderProduct.quantity)}
+                      className="buy-again-button button-primary"
+                    >
                       <img className="buy-again-icon" src="images/icons/buy-again.png" />
-                      <span className="buy-again-message">Add to Cart</span>
+                      <span className="buy-again-message">Add to Cart
+                      </span>
                     </button>
                   </div>
 

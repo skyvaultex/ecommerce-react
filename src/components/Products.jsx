@@ -19,6 +19,11 @@ export function Products({ addToCart }) {
 function ProductCard({ product, addToCart }) {
   const [quantity, setQuantity] = useState(1);
   const { image, name, rating, priceCents } = product;
+  const [addState, setAddState] = useState(false);
+  function changeOpacity() {
+    setAddState(true);
+    setTimeout(() => {setAddState(false)}, 2000);
+  }
 
   return (
     <div className="product-container">
@@ -63,7 +68,7 @@ function ProductCard({ product, addToCart }) {
 
       <div className="product-spacer"></div>
 
-      <div className="added-to-cart">
+      <div className="added-to-cart" style={{ opacity: addState ? 1 : 0 }}>
         <img src="images/icons/checkmark.png" />
         Added
       </div>
@@ -71,6 +76,7 @@ function ProductCard({ product, addToCart }) {
       <button className="add-to-cart-button button-primary"
         onClick={async () => {
           await addToCart(product.id, quantity);
+          changeOpacity();
         }}>
         Add to Cart
       </button>
