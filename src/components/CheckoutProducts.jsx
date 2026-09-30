@@ -4,68 +4,59 @@ import { useState } from 'react'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import './CheckoutProducts.css'
-/* refactor the delivery option logic */
-export function CheckoutProducts({ cart, loadCart }) {
 
-  function DisplayQuantity({ cartItem, loadCart }) {
-    const [quantityState, setQuantityState] = useState(false);
-    const [quantity, setQuantity] = useState(cartItem.quantity);
+function DisplayQuantity({ cartItem, loadCart }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [quantity, setQuantity] = useState(cartItem.quantity);
 
-    function showQuantity() {
-      quantityState === false
-        ? setQuantityState(true)
-        : setQuantityState(false);
+  async function updateQuantity(event) {
+    const newQuantity = Number(event.target.value);
+    setQuantity(newQuantity);
+
+    if (newQuantity === 0) {
+      await axios.delete(`/api/cart-items/${cartItem.productId}`);
+    } else {
+      await axios.put(`/api/cart-items/${cartItem.productId}`, { quantity: newQuantity });
     }
 
-    async function updateQuantity(event) {
-      const newQty = Number(event.target.value);
-      setQuantity(newQty);
-
-      newQty === 0
-        ? await axios.delete(`/api/cart-items/${cartItem.productId}`)
-        : await axios.put(`/api/cart-items/${cartItem.productId}`, { quantity: newQty });
-      await loadCart();
-      setQuantityState(false);
-    }
-
-    function escapeQuantity() {
-      setQuantity(cartItem.quantity);
-      setQuantityState(false);
-    }
-
-    return (
-      <>
-        <span>
-          Quantity: <span className="quantity-label">
-            {
-              (!quantityState && cartItem.quantity) ||
-              (
-                quantityState &&
-                <input
-                  type="text"
-                  className="update-quantity"
-                  value={quantity}
-                  onChange={e => setQuantity(Number(e.target.value))}
-                  onKeyDown={async e => {
-                    if(e.key === "Enter") {
-                      updateQuantity(e);
-                    } else if(e.key === "Escape") escapeQuantity();
-                  }}
-                />
-              )
-            }
-          </span>
-        </span>
-        <span
-          className="update-quantity-link link-primary"
-          onClick={() => showQuantity()}
-        >
-          Update
-        </span>
-      </>
-    )
+    await loadCart();
+    setIsEditing(false);
   }
 
+  function escapeQuantity() {
+    setQuantity(cartItem.quantity);
+    setIsEditing(false);
+  }
+
+  return (
+    <>
+      <span>
+        Quantity: <span className="quantity-label">
+          {isEditing ? (
+            <input
+              type="text"
+              className="update-quantity"
+              value={quantity}
+              onChange={event => setQuantity(Number(event.target.value))}
+              onKeyDown={event => {
+                if (event.key === 'Enter') updateQuantity(event);
+                if (event.key === 'Escape') escapeQuantity();
+              }}
+            />
+          ) : cartItem.quantity}
+        </span>
+      </span>
+      <span
+        className="update-quantity-link link-primary"
+        onClick={() => setIsEditing(true)}
+      >
+        Update
+      </span>
+    </>
+  )
+}
+
+export function CheckoutProducts({ cart, loadCart }) {
   const deliveryOptions = useDeliveryOptions();
 
 
