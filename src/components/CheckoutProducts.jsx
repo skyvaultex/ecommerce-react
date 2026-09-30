@@ -1,17 +1,79 @@
 import { formatMoney } from '../utils/money'
 import { useDeliveryOptions } from '../hooks/useDeliveryOptions'
+import { useState } from 'react'
 import axios from 'axios'
 import dayjs from 'dayjs'
+import './CheckoutProducts.css'
 /* refactor the delivery option logic */
 export function CheckoutProducts({ cart, loadCart }) {
+
+  function DisplayQuantity({ cartItem, loadCart }) {
+    const [quantityState, setQuantityState] = useState(false);
+    const [quantity, setQuantity] = useState(cartItem.quantity);
+
+    function showQuantity() {
+      quantityState === false
+        ? setQuantityState(true)
+        : setQuantityState(false);
+    }
+
+    async function updateQuantity(event) {
+      const newQty = Number(event.target.value);
+      setQuantity(newQty);
+
+      newQty === 0
+        ? await axios.delete(`/api/cart-items/${cartItem.productId}`)
+        : await axios.put(`/api/cart-items/${cartItem.productId}`, { quantity: newQty });
+      await loadCart();
+      setQuantityState(false);
+    }
+
+    function escapeQuantity() {
+      setQuantity(cartItem.quantity);
+      setQuantityState(false);
+    }
+
+    return (
+      <>
+        <span>
+          Quantity: <span className="quantity-label">
+            {
+              (!quantityState && cartItem.quantity) ||
+              (
+                quantityState &&
+                <input
+                  type="text"
+                  className="update-quantity"
+                  value={quantity}
+                  onChange={e => setQuantity(Number(e.target.value))}
+                  onKeyDown={async e => {
+                    if(e.key === "Enter") {
+                      updateQuantity(e);
+                    } else if(e.key === "Escape") escapeQuantity();
+                  }}
+                />
+              )
+            }
+          </span>
+        </span>
+        <span
+          className="update-quantity-link link-primary"
+          onClick={() => showQuantity()}
+        >
+          Update
+        </span>
+      </>
+    )
+  }
+
   const deliveryOptions = useDeliveryOptions();
 
-  
+
   return deliveryOptions.length > 0 && cart.map((cartItem) => {
     const selectedDeliveryOption = deliveryOptions
       .find((deliveryOption) => {
         return deliveryOption.id === cartItem.deliveryOptionId
-    });
+      });
     const { id, name, priceCents, image } = cartItem.product;
     const deleteCartItem = async () => {
       await axios.delete(`/api/cart-items/${cartItem.productId}`);
@@ -35,14 +97,9 @@ export function CheckoutProducts({ cart, loadCart }) {
               ${formatMoney(priceCents)}
             </div>
             <div className="product-quantity">
-              <span>
-                Quantity: <span className="quantity-label">{cartItem.quantity}</span>
-              </span>
-              <span className="update-quantity-link link-primary">
-                Update
-              </span>
+              <DisplayQuantity cartItem={cartItem} loadCart={loadCart}/>
               <span className="delete-quantity-link link-primary"
-              onClick={() => {deleteCartItem()}}>
+                onClick={() => { deleteCartItem() }}>
                 Delete
               </span>
             </div>
@@ -55,7 +112,7 @@ export function CheckoutProducts({ cart, loadCart }) {
             {
               deliveryOptions.map((deliveryOption) => {
                 let priceString = 'FREE SHIPPING';
-                if(deliveryOption.priceCents > 0) priceString = `$${formatMoney(deliveryOption.priceCents)} - Shipping`;
+                if (deliveryOption.priceCents > 0) priceString = `$${formatMoney(deliveryOption.priceCents)} - Shipping`;
                 const updateDeliveryOption = async () => {
                   await axios.put(`/api/cart-items/${cartItem.productId}`, {
                     deliveryOptionId: deliveryOption.id
@@ -64,11 +121,11 @@ export function CheckoutProducts({ cart, loadCart }) {
                 }
 
                 return (
-                  <div key={deliveryOption.id}className="delivery-option"
-                    onClick={() => {updateDeliveryOption()}}>
-                    <input type="radio" 
+                  <div key={deliveryOption.id} className="delivery-option"
+                    onClick={() => { updateDeliveryOption() }}>
+                    <input type="radio"
                       checked={deliveryOption.id === cartItem.deliveryOptionId}
-                      onChange={() => {}}
+                      onChange={() => { }}
                       className="delivery-option-input"
                       name={`delivery-option-${id}`} />
                     <div>

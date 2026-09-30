@@ -1,8 +1,8 @@
 import { useProducts } from '../hooks/useProducts'
 import { useState } from 'react'
 
-export function Products({ addToCart }) {
-  const products = useProducts();
+export function Products({ addToCart, search}) {
+  const products = useProducts({ search });
   return (
     <>
       {products.map(product =>

@@ -1,9 +1,11 @@
 import Header from '../../components/Header'
 import { Products } from '../../components/Products'
 import './HomePage.css'
+import { useSearchParams } from 'react-router'
 
 export function HomePage({ cart, addToCart}) {
-
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get('search') || '';
   return (
     <>
       <title> E-Commerce </title>
@@ -15,6 +17,7 @@ export function HomePage({ cart, addToCart}) {
           <Products 
           cart={cart}
           addToCart={addToCart}
+          search={search}
           />
         </div>
       </div>
