@@ -16,7 +16,7 @@ export function Products({ addToCart, search}) {
   )
 }
 
-function ProductCard({ product, addToCart }) {
+export function ProductCard({ product, addToCart }) {
   const [quantity, setQuantity] = useState(1);
   const { image, name, rating, priceCents } = product;
   const [addState, setAddState] = useState(false);
@@ -28,7 +28,7 @@ function ProductCard({ product, addToCart }) {
   return (
     <div className="product-container">
       <div className="product-image-container">
-        <img className="product-image"
+        <img className="product-image" data-testid="product-image"
           src={image} />
       </div>
 
@@ -38,8 +38,9 @@ function ProductCard({ product, addToCart }) {
 
       <div className="product-rating-container">
         <img className="product-rating-stars"
+          data-testid="product-rating-stars"
           src={`images/ratings/rating-${rating.stars * 10}.png`} />
-        <div className="product-rating-count link-primary">
+        <div className="product-rating-count link-primary" data-testid="product-rating-count">
           {rating.count}
         </div>
       </div>
