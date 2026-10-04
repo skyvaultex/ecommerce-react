@@ -74,7 +74,7 @@ export function ProductCard({ product, addToCart }) {
         Added
       </div>
 
-      <button className="add-to-cart-button button-primary"
+      <button className="add-to-cart-button button-primary" data-testid="add-to-cart-button"
         onClick={async () => {
           await addToCart(product.id, quantity);
           changeOpacity();
